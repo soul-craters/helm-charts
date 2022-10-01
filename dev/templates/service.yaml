@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "phoenixnap-2.fullname" . }}
+  labels:
+    {{- include "phoenixnap-2.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "phoenixnap-2.selectorLabels" . | nindent 4 }}
